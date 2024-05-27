@@ -17,7 +17,7 @@ class Product extends Model
 
         static::creating(function ($model) {
             if (empty($model->slug)) {
-                $model->slug = Str::slug($model->name) . '-' . Str::random(6);
+                $model->slug = Str::slug($model->name).'-'.Str::random(6);
             }
         });
     }

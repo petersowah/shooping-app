@@ -17,10 +17,9 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->date('invoice_date');
-            $table->date('due_date');
-            $table->integer('sub_total');
+            $table->string('status')->default('pending');
             $table->decimal('discount')->default(0.00);
-            $table->integer('total',);
+            $table->integer('total');
 
             $table->timestamps();
         });

@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
+use App\Models\Invoice;
 use Illuminate\Database\Seeder;
 
-class ProductSeeder extends Seeder
+class InvoiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        if (Product::query()->count() === 0) {
-            Product::factory()->count(10)->create();
+        if (Invoice::count() === 0) {
+            Invoice::factory()->count(15)->create();
         }
     }
 }

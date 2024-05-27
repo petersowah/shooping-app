@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\InvoiceResource;
+use App\Models\Invoice;
 
 class InvoiceController extends Controller
 {
-    //
+    public function index()
+    {
+        $invoices = Invoice::query()->with('customer')->get();
+
+        return InvoiceResource::collection($invoices);
+    }
+
+    public function show(Invoice $invoice)
+    {
+        return new InvoiceResource($invoice);
+    }
 }
