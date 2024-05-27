@@ -22,7 +22,9 @@
     <div class="px-2 lg:px-4">
       <div class="px-2 lg:px-4 mb-2 hidden lg:block">
       <div class="flex items-center">
-        <div class="rounded-full h-14 w-14 bg-gray-200">{{ store.supplierInitials(product) }}</div>
+        <div class="rounded-full h-14 w-14 bg-gray-200 flex justify-center items-center font-bold text-xl">{{
+                store.supplierInitials(product)
+            }}</div>
         <div class="ml-4">
           <h1 class="text-xl font-bold">{{  product.supplier?.name }}</h1>
           <p class="text-sm text-gray-500">Visit store</p>

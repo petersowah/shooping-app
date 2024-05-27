@@ -17,7 +17,7 @@ class SupplierFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucwords($this->faker->unique()->company),
+            'name' => ucwords($this->faker->unique()->words(2, true)),
             'email' => $this->faker->unique()->companyEmail,
             'phone' => $this->faker->unique()->phoneNumber,
             'address' => $this->faker->address,

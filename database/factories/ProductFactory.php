@@ -8,16 +8,19 @@ use Illuminate\Support\Facades\File;
 
 class ProductFactory extends Factory
 {
-    protected array $imageUrls = [];
+    protected static array $imageUrls = [];
+    protected static int $currentIndex = 0;
 
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
-        if (! $this->imageUrls) {
+        if (empty(self::$imageUrls)) {
             $this->loadImageUrls();
         }
+
+        $imageUrl = $this->getUniqueImageUrl();
 
         $suppliers = Supplier::pluck('id')->toArray();
 
@@ -25,7 +28,7 @@ class ProductFactory extends Factory
             'name' => ucwords($this->faker->unique()->sentence(2)),
             'description' => $this->faker->text,
             'price' => $this->faker->randomNumber(4),
-            'image' => $this->faker->randomElement($this->imageUrls),
+            'image' => $imageUrl,
             'quantity' => $this->faker->randomNumber(3),
             'sku' => $this->faker->unique()->bothify('####-###-###'), // 4225-776-3234
             'supplier_id' => $this->faker->randomElement($suppliers),
@@ -33,21 +36,36 @@ class ProductFactory extends Factory
         ];
     }
 
-    private function loadImageUrls()
+    private function loadImageUrls(): void
     {
-        $imagesPath = public_path('images'); // Adjust the path to your images folder
+        $imagesPath = public_path('images');
         $allFiles = File::allFiles($imagesPath);
 
         $uniqueImageFiles = [];
+
         foreach ($allFiles as $file) {
             if (in_array($file->getExtension(), ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'])) {
                 $imageHash = md5_file($file->getPathname());
-                if (! isset($uniqueImageFiles[$imageHash])) {
-                    $uniqueImageFiles[$imageHash] = asset('images/'.$file->getFilename());
+                if (!isset($uniqueImageFiles[$imageHash])) {
+                    $uniqueImageFiles[$imageHash] = asset('images/' . $file->getFilename());
                 }
             }
         }
 
-        $this->imageUrls = array_values($uniqueImageFiles);
+        self::$imageUrls = array_values($uniqueImageFiles);
+        shuffle(self::$imageUrls);
+    }
+
+    private function getUniqueImageUrl(): string
+    {
+        if (self::$currentIndex >= count(self::$imageUrls)) {
+            self::$currentIndex = 0;
+            shuffle(self::$imageUrls);
+        }
+
+        $imageUrl = self::$imageUrls[self::$currentIndex];
+        self::$currentIndex++;
+
+        return $imageUrl;
     }
 }
