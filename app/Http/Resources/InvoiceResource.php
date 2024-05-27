@@ -14,6 +14,13 @@ class InvoiceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'customer' => $this->customer,
+            'supplier' => $this->supplier,
+            'invoice_items' => $this->invoice_items,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
