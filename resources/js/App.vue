@@ -1,15 +1,13 @@
-<script setup>
-
-import ProductList from "./components/ProductList.vue";
-</script>
-
 <template>
-<div class="text-center">
-    <h1>Shopping App</h1>
-    <product-list />
-</div>
+  <app-header/>
+  <router-view/>
+  <app-footer/>
 </template>
 
-<style scoped>
+<script setup lang="ts">
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+</script>
 
+<style scoped>
 </style>

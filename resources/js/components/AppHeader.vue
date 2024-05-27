@@ -12,14 +12,14 @@
           to="/invoices"
         >
           Invoices
-          <img src="../assets/icons/user.svg" class="h-5 w-5 ml-2" />
+          <img src="../assets/icons/user.svg" class="h-5 w-5 ml-2" alt="user icon"/>
         </router-link>
         <router-link
           class="flex text-sm font-medium rounded-md leading-5 justify-center items-center hover:bg-gray-200 p-2 relative"
           to="/cart"
         >
           Cart
-          <img src="../assets/icons/cart.svg" class="h-5 w-5 ml-2" />
+          <img src="../assets/icons/cart.svg" class="h-5 w-5 ml-2" alt="cart icon"/>
           <span
             v-if="store.cartCount"
             class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center"

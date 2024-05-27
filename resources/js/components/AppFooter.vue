@@ -6,7 +6,7 @@
       <router-link to="/">
         <h1 class="font-black text-4xl tracking-wide text-b">LOGO</h1>
       </router-link>
-      <p class="text-xs text-gray-500">@2024 peter-logo</p>
+      <p class="text-xs text-gray-500">@{{ new Date().getFullYear() }} peter-logo</p>
     </div>
   </footer>
 </template>

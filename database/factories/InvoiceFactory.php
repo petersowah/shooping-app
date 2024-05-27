@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -43,5 +44,17 @@ class InvoiceFactory extends Factory
             'created_at' => $this->faker->dateTimeBetween('-3 months'),
             'updated_at' => $this->faker->dateTimeBetween('-3 months'),
         ];
+    }
+
+    public function configure(): InvoiceFactory
+    {
+        return $this->afterCreating(function (\App\Models\Invoice $invoice) {
+            $invoice->invoiceItems()->createMany(
+                \App\Models\InvoiceItem::factory()->count(5)->make([
+                    'product_id' => Product::inRandomOrder()->first()->id,
+                    'quantity' => rand(1, 10),
+                ])->toArray()
+            );
+        });
     }
 }
