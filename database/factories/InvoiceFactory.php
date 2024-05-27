@@ -49,8 +49,8 @@ class InvoiceFactory extends Factory
     public function configure(): InvoiceFactory
     {
         return $this->afterCreating(function (\App\Models\Invoice $invoice) {
-            $invoice->invoiceItems()->createMany(
-                \App\Models\InvoiceItem::factory()->count(5)->make([
+            $invoice->invoiceItems()->create(
+                \App\Models\InvoiceItem::factory()->make([
                     'product_id' => Product::inRandomOrder()->first()->id,
                     'quantity' => rand(1, 10),
                 ])->toArray()
